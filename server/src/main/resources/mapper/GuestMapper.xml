@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gk.study.mapper.GuestMapper">
+    <!--    查询住户信息-->
+    <select id="list" resultType="com.gk.study.entity.Guest">
+        select * from b_guest
+        <where>
+            <if test="keyword != ''">
+                and b_guest.name like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="createGuest">
+        insert into b_guest(name, sex, phone, enterTime, h_type, num)
+        VALUES (#{name},#{sex},#{phone},#{enterTime},#{hType},#{num})
+
+    </insert>
+
+    <update id="updateGuest">
+        update b_guest
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="enterTime != null">
+                enterTime = #{enterTime},
+            </if>
+            <if test="hType != null">
+                h_type = #{hType},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

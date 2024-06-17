@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gk.study.mapper.VipMapper">
+
+    <select id="list" resultType="com.gk.study.entity.Vip">
+        select * from b_vip
+        <where>
+            <if test="keyword != ''">
+                name like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="add">
+        insert into b_vip(name, sex, card, phone, v_type, start_time, end_time)
+        VALUES (#{name},#{sex},#{card},#{phone},#{vtype},#{startTime},#{endTime})
+    </insert>
+
+    <update id="update">
+        update b_vip
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="card != null">
+                card = #{card},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="vtype != null">
+                v_type = #{vtype},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

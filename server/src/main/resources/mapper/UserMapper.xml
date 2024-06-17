@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gk.study.mapper.UserMapper">
+    <insert id="createUser">
+        insert into b_user(username, password, nickname, mobile, email, role, status, create_time)
+        VALUES (#{username},#{password},#{nickname},#{mobile},#{email},#{role},#{status},#{createTime})
+
+    </insert>
+
+    <update id="updateUser">
+        update b_user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="list" resultType="com.gk.study.entity.User">
+        select * from b_user
+        <where>
+            <if test="keyword != ''">
+                username like concat('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
